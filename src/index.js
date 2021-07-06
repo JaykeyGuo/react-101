@@ -3,19 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import judgeWinner from './judge.js'
 
-// class Square extends React.Component {
-//   render() {
-//     return (
-//       <button
-//         className="square"
-//         onClick={() => this.props.onClick({ value: "❌" })}
-//       >
-//         {this.props.value}
-//       </button>
-//     );
-//   }
-// }
-
 function Square(props) {
   return (
     <button
@@ -115,11 +102,6 @@ class Game extends React.Component {
       )
     })
     
-    function reverseHistory() {
-      moves.reverse();
-      console.log(moves);
-    }
-    
     const current = history[this.state.stepNumber];
     const winner = judgeWinner(current.squares);
     let status;
@@ -140,9 +122,6 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <div>
-            <button onClick={() => reverseHistory()}>Reverse Order</button>
-          </div>
           <ol>{moves}</ol>
         </div>
       </div>

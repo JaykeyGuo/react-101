@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import judgeWinner from "./judge.js";
 
+import './clock.js';
+
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick} style={props.style}>
@@ -12,10 +14,6 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderSquare(i, isHighlight = false) {
     return (
       <Square

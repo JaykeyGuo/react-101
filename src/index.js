@@ -17,7 +17,6 @@ class Board extends React.Component {
   }
 
   renderSquare(i, isHighlight = false) {
-    console.log(i, isHighlight);
     return (
       <Square
         key={i}
@@ -59,11 +58,11 @@ class Moves extends React.Component {
     };
   }
 
-  jumpTo(step) {
+  jumpTo = (step) => {
     this.props.handleJump(step);
   }
 
-  reverseMove() {
+  reverseMove = () => {
     this.setState({
       isReverseMove: !this.state.isReverseMove,
     });
@@ -100,7 +99,6 @@ class Moves extends React.Component {
         <div>
           <button onClick={() => this.reverseMove()}>Reverse</button>
         </div>
-        {/* <div>{moves}</div> */}
         <div>{this.renderMoves()}</div>
       </div>
     );
@@ -121,10 +119,11 @@ class Game extends React.Component {
       xIsNext: true,
     };
 
+    // 在此强制绑定对应function的this
     // this.jumpTo = this.jumpTo.bind(this)
   }
 
-  handleClick(i) {
+  handleClick = (i) => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice(); // copy state
@@ -146,9 +145,7 @@ class Game extends React.Component {
 
   // 使用箭头函数处理 this 的绑定问题
   jumpTo = (step) => {
-    console.log(step, this);
     this.setState({
-      // history: this.state.history.slice(0, step + 1),
       stepNumber: step,
       xIsNext: step % 2 === 0,
     });
@@ -161,7 +158,7 @@ class Game extends React.Component {
     const winner = judgeWinner(current.squares);
     let status;
     if (winner) {
-      status = `Winner: ${winner}`;
+      status = `Winner: ${!this.state.xIsNext ? "❌" : "⭕️"}`;
     } else {
       status =
         this.state.stepNumber === 9

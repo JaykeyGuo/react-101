@@ -5,19 +5,25 @@ import judgeWinner from "./judge.js";
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className="square" onClick={props.onClick} style={props.style}>
       {props.value}
     </button>
   );
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
+  constructor(props) {
+    super(props);
+  }
+
+  renderSquare(i, isHighlight = false) {
+    console.log(i, isHighlight);
     return (
       <Square
         key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        style={{ background: isHighlight ? "lightblue" : "" }}
       />
     );
   }
@@ -31,8 +37,11 @@ class Board extends React.Component {
     const squaresMap = squares.map((rows, index) => {
       return (
         <div className="board-row" key={index}>
-          {rows.map((row, i) => {
-            return this.renderSquare(row);
+          {rows.map((row) => {
+            return this.renderSquare(
+              row,
+              this.props.winner && this.props.winner.includes(row)
+            );
           })}
         </div>
       );
@@ -148,28 +157,16 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
 
-    // let moves = history.map(({position}, move) => {
-    //   const desc = move
-    //   ? `Go to move #${move}(${Math.floor(position / 3)}, ${position % 3})`
-    //   : 'Go to game start';
-    //   return (
-    //     <li key={move} style={{ fontWeight: (this.state.stepNumber === move) ? 600 : 500 }}>
-    //       <button
-    //         style={{ fontWeight: (this.state.stepNumber === move) ? 600 : 500 }}
-    //         onClick={() => this.jumpTo(move)}>
-    //         {desc}
-    //       </button>
-    //     </li>
-    //   )
-    // })
-
     const current = history[this.state.stepNumber];
     const winner = judgeWinner(current.squares);
     let status;
     if (winner) {
       status = `Winner: ${winner}`;
     } else {
-      status = `Next player: ${this.state.xIsNext ? "❌" : "⭕️"}`;
+      status =
+        this.state.stepNumber === 9
+          ? "Love and Peace"
+          : `Next player: ${this.state.xIsNext ? "❌" : "⭕️"}`;
     }
 
     return (
@@ -178,6 +175,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
           />
         </div>
         <div className="game-info">

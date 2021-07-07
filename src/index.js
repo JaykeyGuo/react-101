@@ -4,6 +4,7 @@ import "./index.css";
 import judgeWinner from "./judge.js";
 
 import './clock.js';
+import './boiling.js';
 
 function Square(props) {
   return (

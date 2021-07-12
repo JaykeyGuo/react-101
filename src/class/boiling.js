@@ -96,4 +96,4 @@ class TemperatureInput extends React.Component {
   }
 }
 
-ReactDOM.render(<Calculator />, document.getElementById('water'));
+ReactDOM.render(<Calculator />, document.getElementById('root'));

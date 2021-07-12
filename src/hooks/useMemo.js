@@ -1,10 +1,11 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import ReactDOM from 'react-dom'
 
 export default function SearchUserList() {
   const [users, setUsers] = useState(null);
   const [searchKey, setSearchKey] = useState("");
-
+  console.log(999);
   useEffect(() => {
     const doFetch = async () => {
       // 组件首次加载时发请求获取用户数据
@@ -13,6 +14,7 @@ export default function SearchUserList() {
     };
     doFetch();
   }, []);
+
   // let usersToShow = null;
 
   // if (users) {
@@ -26,8 +28,8 @@ export default function SearchUserList() {
   const usersToShow = useMemo(() => {
     if (!users) return null;
     return users.data.filter((user) => {
-      return user.first_name.includes(searchKey));
-    }
+      return user.first_name.includes(searchKey);
+    })
   }, [users, searchKey]);
 
   return (
@@ -47,3 +49,5 @@ export default function SearchUserList() {
     </div>
   );
 }
+
+ReactDOM.render(<SearchUserList />, document.getElementById('root'));

@@ -1,15 +1,15 @@
-import ReactDOM from 'react-dom'
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import ReactDOM from "react-dom";
+import React, { useState, useContext, useCallback } from "react";
 
 const themes = {
   light: {
     foreground: "#000000",
-    background: "#eeeeee"
+    background: "#eeeeee",
   },
   dark: {
     foreground: "#ffffff",
-    background: "#222222"
-  }
+    background: "#222222",
+  },
 };
 
 // 创建一个 Theme 的 Context
@@ -28,10 +28,12 @@ function Toolbar(props) {
 function ThemedButton() {
   const theme = useContext(ThemeContext);
   return (
-    <button style={{
-      background: theme.background,
-      color: theme.foreground
-    }}>
+    <button
+      style={{
+        background: theme.background,
+        color: theme.foreground,
+      }}
+    >
       I am styled by theme context!
     </button>
   );
@@ -55,4 +57,4 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
